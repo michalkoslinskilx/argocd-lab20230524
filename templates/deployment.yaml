@@ -6,6 +6,7 @@ metadata:
     app: nginx
 spec:
   replicas: 3
+  type: "{{ $.Values.service.type}}"
   selector:
     matchLabels:
       app: nginx
