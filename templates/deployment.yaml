@@ -6,7 +6,6 @@ metadata:
     app: nginx
 spec:
   replicas: 3
-  type: "{{ $.Values.service.type}}"
   selector:
     matchLabels:
       app: nginx
@@ -20,3 +19,16 @@ spec:
         image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag}}"
         ports:
         - containerPort: 80
+          name: nginx-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      targetPort: nginx-port
+  type: LoadBalancer
