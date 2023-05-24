@@ -21,19 +21,12 @@
 #        - containerPort: 80
 #          name: nginx-port
 #---
-#apiVersion: v1
-#kind: Pod
-#metadata:
-#  name: nginx
-#  labels:
-#    app.kubernetes.io/name: proxy
-#spec:
-#  containers:
-#  - name: nginx
-#    image: nginx:stable
-#    ports:
-#      - containerPort: 80
-#        name: http-web-svc
+#
+#
+#
+#
+#
+#
 #---
 apiVersion: v1
 kind: Service
@@ -44,9 +37,32 @@ spec:
     app: nginx
   ports:
     - port: 80
-      targetPort: http-web-svc
+      targetPort: nginx-port
   type: LoadBalancer
+---
+apiVersion: v1
+kind: Pod
+metadata:
+        name: nginx
+        labels:
+                app.kubernetes.io/name: proxy
+spec:
+        containers:
+                - name: nginx
+                  image: nginx:stable
+                  ports:
+                          - containerPort: 80
+                            name: nginx-port
+
+
 #---
+#
+#
+#
+#
+#
+#
+#
 #apiVersion: v1
 #kind: EndpointSlice
 #metadata:
